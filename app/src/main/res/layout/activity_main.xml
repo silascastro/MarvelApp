@@ -14,9 +14,9 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:textAlignment="center"
-        app:titleTextColor="@color/colorPrimaryDark"
+        app:titleTextColor="@color/cardview_light_background"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:ignore="MissingConstraints" />
 
