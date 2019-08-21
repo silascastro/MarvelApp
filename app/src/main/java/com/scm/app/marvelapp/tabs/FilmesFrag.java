@@ -73,13 +73,14 @@ public class FilmesFrag extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.filmes_layout, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
-        //recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
         String[] myDataset = new String[6];
         myDataset[0] = "teste 1";
         myDataset[1] = "teste 2";
         myDataset[2] = "teste 3";
         myDataset[3] = "teste 4";
         myDataset[4] = "teste 5";
+        myDataset[5] = "teste 6";
 
         mAdapter = new FilmesAdapter(getActivity(),myDataset);
         //recyclerView.setLayoutManager(new LinearLayoutManager());
