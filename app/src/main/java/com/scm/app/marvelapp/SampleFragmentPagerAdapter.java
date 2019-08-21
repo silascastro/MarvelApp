@@ -1,7 +1,6 @@
 package com.scm.app.marvelapp;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,8 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
 
-import static com.scm.app.marvelapp.R.color.colorPrimary;
+import com.scm.app.marvelapp.tabs.FilmesFrag;
+import com.scm.app.marvelapp.tabs.PerfilFrag;
 
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
@@ -48,7 +48,6 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         int[] imageResId = {
-
                 R.drawable.ic_movies_black,
                 R.drawable.ic_profile};
 
