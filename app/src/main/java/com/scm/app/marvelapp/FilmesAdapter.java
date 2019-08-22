@@ -4,36 +4,35 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.MyViewHolder> {
     private Context mContext;
-    private String[] myDataset;
+    private ArrayList<String> myDataset;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        /*public TextView textView;
-        public MyViewHolder(TextView v){
-            super(v);
-            textView = v;
-        }*/
-
-        //public View view;
-        public CardView view;
-        public TextView textView;
-        public MyViewHolder(CardView v){
-            super(v);
-            view = v;
-            textView = v.findViewById(R.id.textView);
-        }
-    }
-
-    public FilmesAdapter(Context context,String[] myDataset){
+    public FilmesAdapter(Context context, ArrayList<String> myDataset){
         this.myDataset = myDataset;
         this.mContext = context;
     }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder{
+
+        public CardView view;
+        public TextView filmeTitle;
+        public MyViewHolder(CardView v){
+            super(v);
+            view = v;
+            filmeTitle = v.findViewById(R.id.filme_title);
+        }
+    }
+
+
 
     @NonNull
     @Override
@@ -43,6 +42,8 @@ public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.MyViewHold
                 .inflate(R.layout.filme_list,viewGroup,false);
         MyViewHolder vh = new MyViewHolder((TextView) v);
         return vh;*/
+
+        Log.d("ONCreateViewHolder","metodo chamado!");
 
         CardView v = (CardView) LayoutInflater.from(mContext)
                 .inflate(R.layout.filme_list,viewGroup,false);
@@ -54,12 +55,15 @@ public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         //myViewHolder.textView.setText(myDataset[i]);
-        myViewHolder.textView.setText(myDataset[i]);
+        //AsyncTaskClass taskClass = new AsyncTaskClass("" ,mContext);
+        //taskClass.execute();
+        Log.d("binViewHolder","metodo chamado!");
+        myViewHolder.filmeTitle.setText(myDataset.get(i));
     }
 
 
     @Override
     public int getItemCount() {
-        return myDataset.length;
+        return myDataset.size();
     }
 }
