@@ -54,7 +54,7 @@ public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.MyViewHold
         myViewHolder.filmeTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.d("click","clicou no título");
             }
         });
     }

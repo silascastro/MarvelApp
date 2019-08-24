@@ -16,7 +16,10 @@
         android:layout_height="wrap_content"
         android:background="#F8F6F8"
         android:backgroundTint="#CCD1D3"
-        android:padding="48dp">
+        android:textAlignment="center"
+        android:paddingTop="48dp"
+        android:paddingBottom="48dp"
+        >
 
         <TextView
             android:id="@+id/filme_title"

@@ -53,7 +53,7 @@ public class FilmesFrag extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        getMovies();
+
     }
 
     public void getMovies(){
@@ -71,7 +71,7 @@ public class FilmesFrag extends Fragment {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v;
-
+        getMovies();
         if(response != null){
             v = inflater.inflate(R.layout.filmes_layout, container, false);
             recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
@@ -118,8 +118,8 @@ public class FilmesFrag extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            load = ProgressDialog.show(getActivity(), "Por favor Aguarde ...",
-                    "Baixando Imagem ...");
+            /*load = ProgressDialog.show(getActivity(), "Por favor Aguarde ...",
+                    "Baixando Imagem ...");*/
 
         }
 
@@ -154,7 +154,7 @@ public class FilmesFrag extends Fragment {
         @Override
         protected void onPostExecute(Response resp) {
             super.onPostExecute(response);
-            load.dismiss();
+            //load.dismiss();
             //setResponse(resp);
 
         }
