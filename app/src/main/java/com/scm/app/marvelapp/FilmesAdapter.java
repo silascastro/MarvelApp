@@ -2,6 +2,7 @@ package com.scm.app.marvelapp;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,10 +15,11 @@ import java.util.ArrayList;
 
 public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.MyViewHolder> {
     private Context mContext;
-    private ArrayList<String> myDataset;
+    private Response myDataset;
 
-    public FilmesAdapter(Context context, ArrayList<String> myDataset){
+    public FilmesAdapter(Context context, Response myDataset){
         this.myDataset = myDataset;
+
         this.mContext = context;
     }
 
@@ -29,6 +31,7 @@ public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.MyViewHold
             super(v);
             view = v;
             filmeTitle = v.findViewById(R.id.filme_title);
+
         }
     }
 
@@ -37,13 +40,6 @@ public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.MyViewHold
     @NonNull
     @Override
     public FilmesAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
-        /*TextView v = (TextView) LayoutInflater.from(mContext)
-                .inflate(R.layout.filme_list,viewGroup,false);
-        MyViewHolder vh = new MyViewHolder((TextView) v);
-        return vh;*/
-
-        Log.d("ONCreateViewHolder","metodo chamado!");
 
         CardView v = (CardView) LayoutInflater.from(mContext)
                 .inflate(R.layout.filme_list,viewGroup,false);
@@ -54,16 +50,17 @@ public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        //myViewHolder.textView.setText(myDataset[i]);
-        //AsyncTaskClass taskClass = new AsyncTaskClass("" ,mContext);
-        //taskClass.execute();
-        Log.d("binViewHolder","metodo chamado!");
-        myViewHolder.filmeTitle.setText(myDataset.get(i));
-    }
+        myViewHolder.filmeTitle.setText(myDataset.getMovies().get(i).getTitle());
+        myViewHolder.filmeTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {
-        return myDataset.size();
+        return myDataset.getMovies().size();
     }
 }
