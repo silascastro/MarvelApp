@@ -3,12 +3,14 @@ package com.scm.app.marvelapp.tabs;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,12 +18,12 @@ import com.google.gson.Gson;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.scm.app.marvelapp.FilmesAdapter;
-import com.scm.app.marvelapp.MainActivity;
-import com.scm.app.marvelapp.Movies;
 import com.scm.app.marvelapp.R;
 import com.scm.app.marvelapp.Response;
 
@@ -30,15 +32,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import static com.scm.app.marvelapp.R.drawable.ic_grid;
+import static com.scm.app.marvelapp.R.drawable.ic_list;
 
 public class FilmesFrag extends Fragment {
     private RecyclerView recyclerView;
@@ -47,6 +46,7 @@ public class FilmesFrag extends Fragment {
     private String api_key = "73d1fdaddad5145a868ff28476e74b06";
     private Response response;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private int icon = 1;
 
 
     @Override
@@ -56,7 +56,63 @@ public class FilmesFrag extends Fragment {
 
     }
 
-    public void getMovies(){
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View v;
+
+
+
+            v = inflater.inflate(R.layout.filmes_layout, container, false);
+            recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+            mAdapter = new FilmesAdapter(getActivity());
+
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            recyclerView.setAdapter(mAdapter);
+
+        return v;
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, final MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+
+        MenuItem item = menu.getItem(1);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+
+                if(icon == 1){
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    item.setIcon(ic_grid);
+                    icon = 0;
+                }
+                if(icon==0){
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    item.setIcon(ic_list);
+                    icon = 1;
+                }
+
+
+
+                //recyclerView.setLayoutManager(new GridLayoutManager(getActivity()));
+                return false;
+            }
+        });
+
+
+
+    }
+
+        /*public void getMovies(){
         AsyncTaskClass taskClass = new AsyncTaskClass(response,getContext());
         try {
             Response res = taskClass.execute("teste").get();
@@ -65,42 +121,7 @@ public class FilmesFrag extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v;
-        getMovies();
-        if(response != null){
-            v = inflater.inflate(R.layout.filmes_layout, container, false);
-            recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
-            mAdapter = new FilmesAdapter(getActivity(),response);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setAdapter(mAdapter);
-
-            swipeRefreshLayout = v.findViewById(R.id.swiperefresh);
-            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    getMovies();
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-            });
-        }
-        else{
-            v = inflater.inflate(R.layout.fail, container, false);
-        }
-
-        return v;
-
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+    }*/
 
 
     @SuppressLint("StaticFieldLeak")
